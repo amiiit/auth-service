@@ -1,5 +1,15 @@
 var path = require('path')
 var webpack = require('webpack')
+var fs = require('fs')
+
+var nodeModules = {};
+fs.readdirSync('node_modules')
+    .filter(function(x) {
+        return ['.bin'].indexOf(x) === -1;
+    })
+    .forEach(function(mod) {
+        nodeModules[mod] = 'commonjs ' + mod;
+    });
 
 module.exports = {
     entry: './src/index.js',
@@ -8,6 +18,7 @@ module.exports = {
         path: path.join(__dirname, 'build'),
         filename: 'auth-service.js'
     },
+    externals: nodeModules,
     resolve: {
         root: path.resolve(__dirname),
         extensions: ['', '.js', '.jsx'],
@@ -17,7 +28,8 @@ module.exports = {
     },
     plugins: [
         new webpack.BannerPlugin('require("source-map-support").install();',
-            { raw: true, entryOnly: false })
+            { raw: true, entryOnly: false }),
+        new webpack.IgnorePlugin(/vertx/)
     ],
     module: {
         loaders: [

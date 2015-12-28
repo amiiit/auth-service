@@ -1,11 +1,14 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import Delivery from 'auth/delivery'
+import Registry from 'auth/registry'
 
 export default class AuthService {
 
     constructor(options) {
         this.app = express()
-        this.db = mongoose.connect(options.dbUrl);
+        this.delivery = new Delivery(options.email)
+        this.registry = new Registry({ host: options.dbIp })
     }
 
     init() {

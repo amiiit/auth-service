@@ -1,0 +1,5 @@
+db:
+  container_name: auth-db
+  image: mongo:3.0.4
+  ports:
+      - "27017:27017"
