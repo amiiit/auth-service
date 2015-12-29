@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import Delivery from 'auth/delivery'
 import Registry from 'auth/registry'
+import logger from 'winston'
 
 export default class AuthService {
 
@@ -19,9 +20,15 @@ export default class AuthService {
         //app.use(bodyParser.json())
 
         app.post('/signup', function (req, res) {
-
+            logger.debug('request', req.body)
+            return true;
         });
 
+        app.get('/hello', function(req, res){
+            res.send('hello world');
+        })
+
+        logger.info('Application started and listening')
         app.listen(3000)
     }
 

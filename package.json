@@ -5,7 +5,6 @@
   "scripts": {
     "start": "./node_modules/.bin/webpack; node build/auth-service.js --db $DOCKER_HOST_IP --smtp smtp.mailgun.org --smtp-user postmaster@stayover.anyoga.co --smtp-password authorize",
     "build": "./node_modules/.bin/webpack",
-    "try": "./node_modules/.bin/webpack; node build/rulesengine-cli.js -v assets/fnv-values.json -r assets/fruit-n-veg-rules.json",
     "test": "./node_modules/.bin/webpack tests.webpack.js --output-filename test_bundle.js; ./node_modules/.bin/mocha build/test_bundle.js"
   },
   "dependencies": {
@@ -13,7 +12,8 @@
     "emailjs": "^1.0.1",
     "express": "^4.13.3",
     "minimist": "^1.2.0",
-    "mongodb": "^2.1.2"
+    "mongodb": "^2.1.2",
+    "winston": "^2.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.3.21",
