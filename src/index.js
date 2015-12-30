@@ -11,7 +11,7 @@ import parseArgs from 'minimist'
     }
 
     if (!allFlagsProvided){
-      console.log('Usage: node auth-service.js --db <mongo_ip> --smtp <smtp> --smtp-user <smtp-user> --smtp-password <smtp-password>', argv);
+      console.log('Usage: node auth-service.js --db <mongo_ip> --smtp <smtp> --smtp-user <smtp-user> --smtp-password <smtp-password>');
     }
 
     new AuthService({

@@ -9,7 +9,7 @@ export default class AuthService {
     constructor(options) {
         this.app = express()
         this.delivery = new Delivery(options.email)
-        this.registry = new Registry({ host: options.dbIp })
+        this.registry = new Registry({ dbUrl: 'mongodb://192.168.64.2:27017/auth_test' })
     }
 
     init() {
