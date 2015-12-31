@@ -1,6 +1,6 @@
 import mongodb, {MongoClient, Server} from 'mongodb'
 
-export default class Registry {
+export default class Repository {
 
     constructor(options){
         this.options = options
@@ -9,7 +9,6 @@ export default class Registry {
 
     initiateConnection(){
       let that = this
-      console.log('connecting to ', this.options.dbUrl)
       MongoClient.connect(this.options.dbUrl, function(err, db) {
         console.log('new connection set')
         that.db = db

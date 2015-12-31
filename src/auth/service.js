@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import Delivery from 'auth/delivery'
-import Registry from 'auth/registry'
+import Repository from 'auth/repository'
 import logger from 'winston'
 
 export default class AuthService {
@@ -9,7 +9,7 @@ export default class AuthService {
     constructor(options) {
         this.app = express()
         this.delivery = new Delivery(options.email)
-        this.registry = new Registry({ dbUrl: 'mongodb://192.168.64.2:27017/auth_test' })
+        this.repository = new Repository({ dbUrl: 'mongodb://192.168.64.2:27017/auth_test' })
     }
 
     init() {
