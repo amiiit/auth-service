@@ -5,7 +5,7 @@
   "scripts": {
     "start": "./node_modules/.bin/webpack; node build/auth-service.js --db $DOCKER_HOST_IP --smtp smtp.mailgun.org --smtp-user postmaster@stayover.anyoga.co --smtp-password authorize",
     "build": "./node_modules/.bin/webpack",
-    "test": "export MONGO_DB_IP=$DOCKER_HOST_IP; ./node_modules/.bin/webpack tests.webpack.js --output-filename test_bundle.js; ./node_modules/.bin/mocha build/test_bundle.js"
+    "test": "export MONGO_DB_IP=$DOCKER_HOST_IP; ./node_modules/.bin/webpack ./test/tests.webpack.js --output-filename test_bundle.js; ./node_modules/.bin/mocha build/test_bundle.js"
   },
   "dependencies": {
     "body-parser": "^1.14.2",
@@ -31,6 +31,7 @@
     "mocha": "^2.3.4",
     "sinon": "v2.0.0-pre",
     "source-map-support": "^0.4.0",
+    "supertest": "^1.1.0",
     "webpack": "^1.12.9"
   }
 }
