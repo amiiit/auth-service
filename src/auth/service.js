@@ -9,7 +9,8 @@ export default class AuthService {
     constructor(options) {
         this.app = express()
         this.delivery = new Delivery(options.email)
-        this.repository = new Repository({ dbUrl: 'mongodb://192.168.64.2:27017/auth_test' })
+        console.log('call me', options)
+        this.repository = new Repository({ dbUrl: options.dbUrl })
     }
 
     init() {
