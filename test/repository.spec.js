@@ -2,8 +2,7 @@ import TestUtils from './test-utils'
 import Repository from 'auth/repository'
 import request from 'supertest'
 import sinon from 'sinon'
-
-var expect = require('chai').expect
+import {expect} from 'chai';
 
 let repository, db, testUtils
 
@@ -18,9 +17,8 @@ describe('Repository', function () {
         })
     })
 
-    it.only('singup request', function (done) {
-       repository.isEmailExists('a@b.com').should.eventually.be.true()
-
+    it('singup request', function (done) {
+        expect(repository.isEmailExists('a@b.com')).to.eventually.equal(false).and.notify(done)
     })
 
 });

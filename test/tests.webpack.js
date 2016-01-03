@@ -1,4 +1,9 @@
 import TestUtils from './test-utils'
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+
+chai.use(chaiAsPromised);
+
 require('core-js/es5');
 
 var MongoClient = require('mongodb').MongoClient
