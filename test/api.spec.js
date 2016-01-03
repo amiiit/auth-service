@@ -13,11 +13,14 @@ describe('Signup', function () {
         console.log('api tests before')
         testUtils = new TestUtils()
 
-        service = new AuthService({email: {}, dbUrl: testUtils.dbUrl})
-        service.init()
         //service.delivery = sinon.spy(service.delivery)
-        app = service.app
         db = testUtils.dbConnection
+
+        service = new AuthService({email: {}, dbUrl: testUtils.dbUrl})
+        app = service.app
+
+        return service.init()
+
     })
 
     describe('singup request', function () {
@@ -29,7 +32,8 @@ describe('Signup', function () {
                 .expect(200)
                 .end(function (err, res) {
                     if (err) throw err;
-                    console.log('test is done')
+                    console.log(res.body)
+                    expect(res.body.status).to.match(/.*Signed up successfully.*/)
                     done()
                 });
         });
