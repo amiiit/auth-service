@@ -13,6 +13,7 @@
     "express": "^4.13.3",
     "minimist": "^1.2.0",
     "mongodb": "^1.4.9",
+    "validator": "^4.4.0",
     "winston": "^2.1.1"
   },
   "devDependencies": {

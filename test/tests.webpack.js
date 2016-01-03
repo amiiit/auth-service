@@ -12,7 +12,7 @@ before(function(done){
         } else {
             new TestUtils().dbConnection = db
             new TestUtils().dbUrl = 'mongodb://192.168.64.2/auth_test'
-            done()
+            db.dropDatabase(done)
         }
     })
 })

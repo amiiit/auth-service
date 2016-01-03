@@ -2,27 +2,45 @@ import mongodb, {MongoClient, Server} from 'mongodb'
 
 export default class Repository {
 
-    constructor(options){
+    constructor(dbUrl, options = {}) {
+        this.dbUrl = dbUrl
         this.options = options
-        this.initiateConnection()
     }
 
-    initiateConnection(){
-      let that = this
-      MongoClient.connect(this.options.dbUrl, function(err, db) {
-        console.log('new connection set')
-        that.db = db
-      })
-    }
-
-    isEmailTaken(email){
-        let result = this.db.collection('user').find({
-            email: email
-        }, function(err, docs){
-          console.log('docs', docs)
+    init() {
+        let that = this
+        return new Promise(function (accept, reject) {
+            MongoClient.connect(that.dbUrl, function (err, db) {
+                if (!err) {
+                    that.db = db
+                    accept()
+                } else {
+                    reject(err)
+                }
+            })
         })
 
-        console.log('result', result)
+    }
+
+    isEmailExists(email) {
+        return new Promise((accept, reject) => {
+            this.db.collection('users').find({
+                email: email
+            }).count(function (err, count) {
+                if (err) {
+                    reject(err)
+                } else if (count > 1) {
+                    throw new Error(`found ${count} entries for email ${email}`)
+                } else accept(count == 1)
+            })
+        })
+
+    }
+
+    newSignup(email) {
+        return new Promise(function (accept, reject) {
+            accept()
+        })
     }
 
 }
