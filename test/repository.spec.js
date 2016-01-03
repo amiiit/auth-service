@@ -19,27 +19,8 @@ describe('Repository', function () {
     })
 
     it.only('singup request', function (done) {
-        this.timeout(5000)
-        var promise = repository.isEmailExists('a@b.com').then(function (result) {
-            console.log('test call result', result)
-            expect(result).to.be.false()
-            console.log('error')
-            return new Error()
-            done()
-        }, function (err) {
-            console.log('exists? err', err)
-            done(err)
-        })
+       repository.isEmailExists('a@b.com').should.eventually.be.true()
 
-
-        console.log('promise')
-        promise.then(function (a) {
-            console.log('promise passed', a)
-        }, function (err) {
-            console.log('promise rejected', err)
-        })
-
-        return promise
     })
 
 });
