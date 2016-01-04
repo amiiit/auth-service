@@ -38,8 +38,23 @@ export default class Repository {
     }
 
     newSignup(email) {
-        return new Promise(function (accept, reject) {
-            accept()
+        return new Promise((accept, reject)=> {
+            this.isEmailExists(email).then((isExists)=> {
+                if (!isExists) {
+                    this.db.collection('users').insert({
+                        email: email,
+                        ctime: new Date()
+                    }, (err)=> {
+                        if (err) {
+                            reject(err)
+                        } else {
+                            accept(true)
+                        }
+                    })
+                }
+            }, (err)=> {
+                reject(err)
+            })
         })
     }
 
