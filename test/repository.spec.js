@@ -18,10 +18,12 @@ describe('Repository', function () {
     })
 
     it.only('singup request', function (done) {
-        expect(repository.isEmailExists('a@b.com')).to.eventually.equal(false).then(function(){
-            expect(repository.newSignup('a@b.com')).to.eventually.equal(true).then(function(){
-                expect(repository.isEmailExists('a@b.com')).to.eventually.equal(true).and.notify(done)
-            })
+        repository.isEmailExists('a@b.com').then(function (exists) {
+            expect(exists).to.equal(false)
+        }).then(function () {
+            return expect(repository.newSignup('a@b.com')).to.eventually.equal(true)
+        }).then(function () {
+            expect(repository.isEmailExists('a@b.com')).to.eventually.equal(true).and.notify(done)
         })
     })
 
