@@ -24,7 +24,7 @@ describe('Signup', function () {
     })
 
     describe('singup request', function () {
-        it('adds entry in db', function (done) {
+        it('http request for signup', function (done) {
             request(app)
                 .post('/signup')
                 .type('form')

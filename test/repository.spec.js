@@ -17,7 +17,7 @@ describe('Repository', function () {
         })
     })
 
-    it.only('singup request', function (done) {
+    it('singup request', function (done) {
         repository.isEmailExists('a@b.com').then(function (exists) {
             expect(exists).to.equal(false)
         }).then(function () {
