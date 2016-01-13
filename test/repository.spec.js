@@ -2,7 +2,7 @@ import TestUtils from './test-utils'
 import Repository from 'auth/repository'
 import request from 'supertest'
 import sinon from 'sinon'
-import {expect} from 'chai';
+import {expect} from 'chai'
 
 let repository, db, testUtils
 

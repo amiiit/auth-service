@@ -22,6 +22,10 @@ export default class Repository {
 
     }
 
+    setObservable(rxSubject){
+        this.rxSubject = rxSubject
+    }
+
     isEmailExists(email) {
         return new Promise((accept, reject) => {
             this.db.collection('users').find({
@@ -49,6 +53,7 @@ export default class Repository {
                             reject(err)
                         } else {
                             accept(true)
+                            this.rxSubject && this.rxSubject.onNext(email)
                         }
                     })
                 }

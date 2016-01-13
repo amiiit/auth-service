@@ -4,13 +4,21 @@ import Delivery from 'auth/delivery'
 import Repository from 'auth/repository'
 import logger from 'winston'
 import validator from 'validator'
+import Rx from 'rx'
 
 export default class AuthService {
 
     constructor(options) {
         this.app = express()
-        this.delivery = new Delivery(options.email)
+
+
         this.repository = new Repository(options.dbUrl)
+
+        let newUserSubject = new Rx.Subject()
+        this.repository.setObservable(newUserSubject)
+
+        this.delivery = new Delivery(options.email)
+        this.delivery.setObserver(newUserSubject)
     }
 
     init() {
