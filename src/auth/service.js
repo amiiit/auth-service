@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import Delivery from 'auth/delivery'
 import Repository from 'auth/repository'
+import Tokenizer from 'auth/tokenizer'
 import logger from 'winston'
 import validator from 'validator'
 import Rx from 'rx'
@@ -11,14 +12,16 @@ export default class AuthService {
     constructor(options) {
         this.app = express()
 
-
         this.repository = new Repository(options.dbUrl)
 
-        let newUserSubject = new Rx.Subject()
-        this.repository.setObservable(newUserSubject)
+        let eventsSubject = new Rx.Subject()
+
+        this.repository.setObservable(eventsSubject)
+
+        this.tokenizer = new Tokenizer({repository: this.repository, subject: eventsSubject})
 
         this.delivery = new Delivery(options.email)
-        this.delivery.setObserver(newUserSubject)
+        this.delivery.setSubject(eventsSubject)
     }
 
     init() {

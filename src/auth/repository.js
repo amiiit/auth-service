@@ -22,7 +22,7 @@ export default class Repository {
 
     }
 
-    setObservable(rxSubject){
+    setObservable(rxSubject) {
         this.rxSubject = rxSubject
     }
 
@@ -42,7 +42,7 @@ export default class Repository {
     }
 
     newSignup(email) {
-        return new Promise((accept, reject)=> {
+        return new Promise((resolve, reject)=> {
             this.isEmailExists(email).then((isExists)=> {
                 if (!isExists) {
                     this.db.collection('users').insert({
@@ -52,13 +52,37 @@ export default class Repository {
                         if (err) {
                             reject(err)
                         } else {
-                            accept(true)
-                            this.rxSubject && this.rxSubject.onNext(email)
+                            resolve(true)
+                            this.rxSubject && this.rxSubject.onNext({type: 'new-user', data: {email: email}})
                         }
                     })
                 }
             }, (err)=> {
                 reject(err)
+            })
+        })
+    }
+
+    setLoginToken(email, loginToken, timeToExpireSec) {
+        return new Promise((resolve, reject)=> {
+
+            this.db.collection('users').update({
+                email: email
+            }, {
+                $set: {
+                    loginToken: loginToken,
+                    mtime: new Date(),
+                    expires: new Date(Date.now() + (timeToExpireSec * 1000))
+                },
+                $inc: {
+                    loginTokensCount: 1
+                }
+            }, (err)=> {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(true)
+                }
             })
         })
     }

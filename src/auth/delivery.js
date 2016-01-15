@@ -3,6 +3,7 @@ import email from 'emailjs'
 export default class Delivery {
 
     constructor(options) {
+        this.sender = options.user
         this.smtp = options.smtp
 
         this.server = email.server.connect({
@@ -16,16 +17,21 @@ export default class Delivery {
     setObserver(observer) {
         this.observer = observer
         observer.subscribe(
-            x => console.log('Value published to observer #2: ' + x),
+            event => {
+                if (event.type == 'new-email-token') {
+                    this.sendMail(event.data.email, 'Welcome', 'Welcome user')
+                }
+            },
             e => console.log('onError: ' + e.message),
             () => console.log('onCompleted'))
     }
 
 
     sendMail(to, subject, text) {
-        server.send({
+        console.log('Sending email', to, subject)
+        this.server.send({
             text: text,
-            from: "you <postmaster@stayover.anyoga.co>",
+            from: this.sender,
             to: to,
             subject: subject
         }, function (err, message) {
