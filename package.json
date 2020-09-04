@@ -12,7 +12,7 @@
     "emailjs": "^1.0.1",
     "express": "^4.13.3",
     "minimist": "^1.2.0",
-    "mongodb": "^1.4.9",
+    "mongodb": "^3.6.1",
     "rx": "^4.0.7",
     "validator": "^4.4.0",
     "winston": "^2.1.1"
